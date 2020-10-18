@@ -143,9 +143,8 @@ class Comment
     }
 
     /**
-     * Set undocumented variable
      *
-     * @param  Post  $post  Undocumented variable
+     * @param  Post  $post 
      *
      * @return  self
      */ 

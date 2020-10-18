@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,8 +38,8 @@ Class Post
 
     /**
      * @ORM\ManyToMany(targetEntity="User")
-     * 0ORM\JoinTable(name="post_likes")
-     * @var User[]
+     * @ORM\JoinTable(name="post_likes")
+     * @var User[]|Collection
      */
     private $likedBy;
 
@@ -48,6 +49,7 @@ Class Post
     public function __construct()
     {
         $this->publishedAt = new \DateTimeImmutable();
+        $this->likedBy = new ArrayCollection();
     }
 
     /**
@@ -135,7 +137,7 @@ Class Post
     /**
      * Get the value of likedBy
      *
-     * @return  User[]
+     * @return  User[]|Collection
      */ 
     public function getLikedBy()
     {
@@ -149,10 +151,22 @@ Class Post
      *
      * @return  self
      */ 
-    public function setLikedBy(array $likedBy)
+    public function LikeBy(User $user)
     {
-        $this->likedBy = $likedBy;
+        if(!$this->likedBy->contains($user))
+        {
+            $this->likedBy[] = $user;
+        }
 
+        return $this;
+    }
+
+    public function dislikeBy(User $user)
+    {
+        if($this->likedBy->contains($user))
+        {
+            $this->likedBy->removeElements($user);
+        }
         return $this;
     }
 }
