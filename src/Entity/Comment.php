@@ -40,7 +40,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Post")
-     *
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @var Post
      */
     private $post;

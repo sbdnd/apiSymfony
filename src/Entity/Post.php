@@ -2,8 +2,10 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity
@@ -14,18 +16,21 @@ Class Post
      * @ORM\Id()
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("get")
      * @var int|null
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"get"})
      * @var string
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups("get")
      * @var \DateTimeInterface
      */
     private $publishedAt;
